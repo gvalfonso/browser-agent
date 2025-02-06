@@ -44,13 +44,6 @@ class BrowserAgent {
         history,
       });
       for (const action of result) {
-        history.push({
-          url: this.page.url(),
-          title: await this.page.title(),
-          ...action,
-        });
-      }
-      for (const action of result) {
         try {
           await this.page.waitForSelector("html");
         } catch {}
@@ -58,8 +51,11 @@ class BrowserAgent {
           `Action being performed: ${JSON.stringify(action, null, 4)}`
         );
         if ((action as Action & { node: number }).node) {
-          var node = nodes[(action as Action & { node: number }).node];
-          console.log(`Interacting with node: ${JSON.stringify(node)}`);
+          console.log(
+            `Interacting with node: ${JSON.stringify(
+              nodes[(action as Action & { node: number }).node]
+            )}`
+          );
         }
         switch (action.type) {
           case "click":
@@ -93,6 +89,11 @@ class BrowserAgent {
                 JSON.stringify(action, null, 4)
             );
         }
+        history.push({
+          url: this.page.url(),
+          title: await this.page.title(),
+          ...action,
+        });
       }
     }
   }
