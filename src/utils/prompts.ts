@@ -30,6 +30,7 @@ export const prompts = {
 2. If no \`elements\` are provided, you can only perform \`navigate\`, \`scroll\`, \`wait\`, or \`stop\` actions.
 3. Always follow the exact action types and structure defined above.
 4. **The \`url\` field in the request represents the current page.** Do not navigate to this URL again unless explicitly instructed.
+5. If it appears that you are lost based on the action history. Order a stop.
 
 **Example Request:**
 {

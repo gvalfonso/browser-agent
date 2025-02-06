@@ -26,14 +26,14 @@ class BrowserAgent {
       ],
       defaultViewport: null,
     });
-    const page = (await browser.pages())[0];
+    const [page] = await browser.pages();
     this.page = page;
     return { browser, page };
   }
 
   async runTask(prompt: string) {
     if (!this.page) await this.startBrowser();
-    var history: ActionHistory[] = [];
+    const history: ActionHistory[] = [];
     while (true) {
       const nodes = await getNodeList(this.page);
       const result: Action[] = await this.worker.getAction({
@@ -78,8 +78,7 @@ class BrowserAgent {
             break;
           case "stop":
             console.log(`AI has ordered a stop: ${action.reason}`);
-            await sleep(100000000);
-            break;
+            return;
           case "press":
             await this.page.keyboard.press(action.key);
             break;
@@ -102,4 +101,5 @@ class BrowserAgent {
 (async () => {
   const agent = new BrowserAgent();
   await agent.runTask("Go on youtube and find a really cool cat video.");
+  await sleep(100000000);
 })();
