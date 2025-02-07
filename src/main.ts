@@ -3,7 +3,7 @@ import puppeteer, { Page } from "puppeteer";
 import { LLMWorker } from "./utils/llmworker";
 import { Action, ActionHistory } from "./types/actions";
 import { sleep } from "openai/core";
-import { getNodeList } from "./utils/helpers";
+import { getNodeList, waitTillLoaded } from "./utils/helpers";
 
 class BrowserAgent {
   private worker: LLMWorker;
@@ -94,15 +94,17 @@ class BrowserAgent {
           ...action,
         });
       }
+      await waitTillLoaded(this.page);
+      history.push({
+        url: this.page.url(),
+        title: await this.page.title(),
+      });
     }
   }
 }
 
 (async () => {
   const agent = new BrowserAgent();
-  await agent.runTask(
-    "Go on youtube and find a really cool cat video and stay on the search page."
-  );
-  await agent.runTask("Navigate to a cool cat video in the search.");
+  await agent.runTask("Navigate to a cool cat video on youtube.");
   await sleep(100000000);
 })();

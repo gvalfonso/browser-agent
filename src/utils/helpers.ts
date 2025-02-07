@@ -99,3 +99,24 @@ export async function elementIsVisible(page: Page, selector: string) {
   } catch (e) {}
   return false;
 }
+
+export async function checkIfLoaded(page: Page) {
+  return await page.evaluate(() => {
+    return document.readyState === "complete";
+  });
+}
+
+export async function waitTillLoaded(page: Page) {
+  return new Promise((res, rej) => {
+    const checkInterval = setInterval(async () => {
+      if (await checkIfLoaded(page)) {
+        res(true);
+        clearInterval(checkInterval);
+      }
+    }, 1000);
+    setTimeout(() => {
+      clearInterval(checkInterval);
+      res(false);
+    }, 60000);
+  });
+}

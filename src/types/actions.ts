@@ -156,4 +156,4 @@ export type InteractableElement = {
   text: string;
 };
 
-export type ActionHistory = Action & { title: string; url: string };
+export type ActionHistory = Partial<Action> & { title: string; url: string };

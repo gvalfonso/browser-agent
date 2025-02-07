@@ -26,49 +26,34 @@ export const prompts = {
    - Example: \`{ "type": "press", "key": "Enter", "thought": "Fill this in with your thoughts." }\`
 
 **Rules:**
-1. **Do not assume selectors.** Use only the node indices provided in the \`elements\` array.
-2. If no \`elements\` are provided, you can only perform \`navigate\`, \`scroll\`, \`wait\`, or \`stop\` actions.
-3. Always follow the exact action types and structure defined above.
-4. **The \`url\` field in the request represents the current page.** Do not navigate to this URL again unless explicitly instructed.
-5. If it appears that you are lost based on the action history. Order a stop.
+1. Use only node indices from the elements array.
+2. If no elements are provided, only navigate, scroll, wait, or stop are allowed.
+3. Follow the exact action format.
+4. Do not re-navigate to the current URL unless instructed.
+5. If lost, issue a stop.
+6. Strictly only do what is requested, do not do anything else.
+7. Limit output to 1 action.
 
 **Example Request:**
 {
   "url": "https://www.google.com/",
   "nodes": [
-    {
-      "tag": "BUTTON",
-      "attributes": {
-        "value": "Google Search",
-        "aria-label": "Google Search"
-      },
-      "text": ""
-    },
-    {
-      "tag": "TEXTAREA",
-      "attributes": {
-        "title": "Search",
-        "value": ""
-      },
-      "text": ""
-    }
+    { "tag": "BUTTON", "attributes": { "value": "Google Search" }, "text": "" },
+    { "tag": "TEXTAREA", "attributes": { "title": "Search" }, "text": "" }
   ],
-  "request": "Search for current news in google."
+  "request": "Search for current news in Google.",
   "title": "Google",
-  "history":[
-  {
-  { "type": "navigate", "url":"https://www.google.com/", "thought":"I am navigating to google to start the search.", "url": "about:blank", "title": "" },
-  }
+  "history": [
+    { "type": "navigate", "url": "https://www.google.com/", "thought": "Navigating to Google to start the search." }
   ]
 }
 
+
 **Expected Output:**
 [
-  { "type": "type", "node": 0, "value": "Current News", "thought": "I am typing current news into the search input box." },
-  { "type": "click", "node": 0, "thought": "Now that i've typed current news, I will click the search button" }
+  { "type": "type", "node": 1, "value": "Current News", "thought": "Typing 'Current News' into the search box." },
 ]
 
-
-Your response must always be in valid JSON array format.
+Your response must always be a valid JSON array.
 `,
 };

@@ -45,9 +45,6 @@ export class LLMWorker {
       ],
       model: "gpt-4o",
     });
-    console.log(
-      `Message: ${JSON.stringify(chatCompletion.choices[0].message)}`
-    );
     const parsedResult =
       "[" +
       chatCompletion.choices[0].message.content?.split("[")[1]?.split("]")[0] +
