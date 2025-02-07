@@ -48,7 +48,7 @@ class BrowserAgent {
           await this.page.waitForSelector("html");
         } catch {}
         console.log(
-          `Action being performed: ${JSON.stringify(action, null, 4)}`
+          `Action being performed: ${JSON.stringify(action.thought, null, 4)}`
         );
         if ((action as Action & { node: number }).node) {
           console.log(
@@ -77,7 +77,7 @@ class BrowserAgent {
             await sleep(action.amount);
             break;
           case "stop":
-            console.log(`AI has ordered a stop: ${action.reason}`);
+            console.log(`AI has ordered a stop: ${action.thought}`);
             return;
           case "press":
             await this.page.keyboard.press(action.key);
@@ -100,6 +100,9 @@ class BrowserAgent {
 
 (async () => {
   const agent = new BrowserAgent();
-  await agent.runTask("Go on youtube and find a really cool cat video.");
+  await agent.runTask(
+    "Go on youtube and find a really cool cat video and stay on the search page."
+  );
+  await agent.runTask("Navigate to a cool cat video in the search.");
   await sleep(100000000);
 })();

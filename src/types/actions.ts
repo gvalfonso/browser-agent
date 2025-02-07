@@ -42,7 +42,6 @@ type WaitAction = {
 };
 type StopAction = {
   type: "stop";
-  reason: string;
   thought: string;
 };
 type KeyPressAction = {
@@ -145,6 +144,7 @@ type KeyPressAction = {
     | "EndCall"
     | "VolumeDown"
     | "VolumeUp";
+  thought: string;
 };
 
 export type InteractableElement = {

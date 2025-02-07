@@ -20,7 +20,7 @@ export const prompts = {
    - Example: \`{ "type": "wait", "amount": 1000, "thought": "Fill this in with your thoughts." }\`
 
 7. **Stop**: Stop the browser for any specific reason. An example would be that the task was completed.
-   - Example: \`{ "type": "stop", "reason": "Task completed.", "thought": "Fill this in with your thoughts." }\`
+   - Example: \`{ "type": "stop", "thought": "Fill this in with your thoughts." }\`
 
 8. **Press**: Press a key in the keyboard.
    - Example: \`{ "type": "press", "key": "Enter", "thought": "Fill this in with your thoughts." }\`
