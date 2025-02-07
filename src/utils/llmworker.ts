@@ -18,7 +18,7 @@ export class LLMWorker {
     nodes: InteractableElement[];
     url: string;
     history: ActionHistory[];
-  }) {
+  }): Promise<Action[]> {
     const { prompt, nodes, url, title, history } = data;
     // Lets remove selector data from elements before sending to the LLM.
     const scrubbedNodes = [];
